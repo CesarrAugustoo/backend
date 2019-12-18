@@ -3,6 +3,7 @@ var Grafo = require('./app/models/Grafo');
 var Dijkstra = require('./app/models/Dijkstra')
 var GeradorDeRegiao = require('./app/models/GeradorDeRegiao')
 var GeradorDeGrafo = require('./app/models/GeradorDeGrafo')
+var AnalisadorDeEcoponto = require('./app/models/AnalisadorDeEcoponto')
 
 app.listen(3000,() => {
     console.log("Servidor ON")
@@ -26,28 +27,53 @@ app.listen(3000,() => {
 
     const ecopontos = [
         {
-            latitude: -3.007,
-            longitude: -59.0002
+            latitude: -3.091347,
+            longitude: -60.017486,
+            nivel: 80,
+            diasSemColeta: 1
         },
         {
             latitude: -3.007,
-            longitude: -59.0002
+            longitude: -59.001,
+            nivel: 80,
+            diasSemColeta: 1
         },
         {
             latitude: -3.007,
-            longitude: -59.0002
+            longitude: -59.002,
+            nivel: 80,
+            diasSemColeta: 1
         }
     ]
 
     let gRegiao = new GeradorDeRegiao()
     gRegiao.geraRegiaoPorGeografia()
 
-    // let gGrafo = new GeradorDeGrafo()
+    let gGrafo = new GeradorDeGrafo()
 
-    // console.log('Entrou')
-    // gGrafo.geraAPartirDe(ecopontos).then(() => {
-    //     let grafo = gGrafo.getGrafo()
-    //     console.log(grafo.getMatrizDeAdjacencia())
-    // })
+
+    let analisador = new AnalisadorDeEcoponto()
+    let ecopontosProntos = analisador.devolveEcopontosProntosPraColeta(ecopontos)
+
+    gGrafo.geraAPartirDe(ecopontosProntos).then(() => {
+        let dijkstra = new Dijkstra()
+        
+        let grafo = gGrafo.getGrafo()
+
+        dijkstra.executar(grafo.getMatrizDeAdjacencia(), 0)
+        console.log('Vertice 1')
+        console.log(dijkstra.getArrayVertices())
+
+        dijkstra.executar(grafo.getMatrizDeAdjacencia(), 1)
+        console.log('Vertice 2')
+        console.log(dijkstra.getArrayVertices())
+
+        dijkstra.executar(grafo.getMatrizDeAdjacencia(), 2)
+        console.log('Vertice 3')
+        console.log(dijkstra.getArrayVertices())
+
+    }).catch(() => {
+        console.log('Erro grafo')
+    })
 
 })
