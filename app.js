@@ -42,12 +42,12 @@ app.listen(3000,() => {
     let gRegiao = new GeradorDeRegiao()
     gRegiao.geraRegiaoPorGeografia()
 
-    let gGrafo = new GeradorDeGrafo()
+    // let gGrafo = new GeradorDeGrafo()
 
-    console.log('Entrou')
-    gGrafo.geraAPartirDe(ecopontos).then(() => {
-        let grafo = gGrafo.getGrafo()
-        console.log(grafo.getMatrizDeAdjacencia())
-    })
+    // console.log('Entrou')
+    // gGrafo.geraAPartirDe(ecopontos).then(() => {
+    //     let grafo = gGrafo.getGrafo()
+    //     console.log(grafo.getMatrizDeAdjacencia())
+    // })
 
 })

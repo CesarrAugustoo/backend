@@ -10,6 +10,10 @@ class GeradorDeRegiao {
         return regioes
     }
 
+    /**
+     * Este método devolve as regiões baseada em densidade de ecopontos
+     * TODO: Este método será implementado futuramente
+    */
     geraRegiaoPorDensidade() {
 
     }
