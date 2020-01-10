@@ -78,7 +78,7 @@ const regioes = [
             'Chapada',
             'Flores',
             'Nossa Senhora das Graças',
-            'Parque 10 de Novembro',
+            'Parque Dez de Novembro',
             'São Geraldo'
         ]
     },
