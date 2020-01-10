@@ -14,7 +14,7 @@ class AnalisadorDeEcoponto {
             // Verifica as condições necessárias para um ecopontos ser coletável:
             // Primeira condição: nível de enchimento se maior que 80%
             // Segunda condição: dias sem coleta maior que dois e nível de enchimento maior que 20%
-            if (listaOriginal[i].nivel >= 80 || (listaOriginal[i].diasSemColeta > 2 && listaOriginal[i].nivel >= 20)) {
+            if (listaOriginal[i].nivel >= 80 || (listaOriginal[i].diasSemColeta >= 2 && listaOriginal[i].nivel >= 20)) {
                 ecopontos.push(listaOriginal[i])
             }
         }

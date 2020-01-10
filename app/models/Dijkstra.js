@@ -8,7 +8,7 @@ class Dijkstra {
     menorCaminho = []
 
     /**
-     * Este nicializa as listas necessárias ao algoritmo de Dijkstra
+     * Este inicializa as listas necessárias ao algoritmo de Dijkstra
     */
     inicializa() {
         // Zera o vetor de distâncias da origem
@@ -86,7 +86,7 @@ class Dijkstra {
     }
 
     /**
-     * Ajusta a distâncias calculadas pelo algoritmo de Dijkstra
+     * Ajusta as distâncias calculadas pelo algoritmo de Dijkstra
     */
     ajustaDistancias() {
         for (var i = 0; i < this.distanciaDaOrigem.length; i++) {
