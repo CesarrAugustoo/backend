@@ -30,6 +30,18 @@ var EcopontoSchema = new Schema({
     nivelGas: {
         type: Number, 
         required: true
+    },
+    ultimaColeta: {
+        type: Date,
+        required: true
+    },
+    capacidade: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true

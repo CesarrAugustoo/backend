@@ -21,36 +21,86 @@ module.exports = {
     },
     async cadastrar_ecopontos(req, res){
         var ecoponto = new Ecoponto()
-        console.log(req.body.ecoponto)
         ecoponto = req.body.ecoponto;
-        // ecoponto.nome = "Ecoponto - Teste"
-        // ecoponto.ecopontoID = 3
-        // ecoponto.temperatura = 40
-        // ecoponto.latitude = -3.091466
-        // ecoponto.longitude = -60.0172555
-        // ecoponto.nivelCheio = 80
-        // ecoponto.nivelGas = 35
-        // var {nome, ecopontoID, temperatura, latitude, longitude, nivelCheio, nivelGas} =  //req.body
+        ecoponto.status = "Inativo"
+       
+        // Criando IDs 
+        
+        Ecoponto.countDocuments({}, function(err, result) {
+            if (err) {
+              console.log(err);
+            }
+        }).then((qtd) => {
+            console.log("valor de contagem: " + qtd)
 
-        await Ecoponto.create(ecoponto).then((ecoponto) =>{
+            // Zerando os valores iniciais]
 
-        }).catch(() =>{
+            ecoponto.ecopontoID = qtd + 1
+            ecoponto.nivelCheio = 0
+            ecoponto.temperatura = 0
+            ecoponto.nivelGas = 0
+            ecoponto.ultimaColeta = 0
 
-        })
+            Ecoponto.create(ecoponto).then((ecoponto) =>{
+                console.log("Ecoponto adicionado")
+            }).catch(() =>{
+                console.log("erro ao adicionar!")
+            })
 
-        res.send(`<html>
-        <body>
-            <h1>Nome: `+ ecoponto.nome +`</h1>
-            <h1>EcopontoID: ` + ecoponto.ecopontoID + `</h1>
-            <h1>Temperatura: ` + ecoponto.temperatura + ` </h1>
-            <h1>Latitude: ` + ecoponto.latitude + `</h1>
-            <h1>Longitude: ` + ecoponto.longitude + `</h1>
-            <h1>Nivel do Ecoponto: ` + ecoponto.nivelCheio + `</h1>
-            <h1>Nivel do gas: ` + ecoponto.nivelGas + `</h1>
-        </body></html>`)
-        return res.json(req.body)
+            return res.json(ecoponto)
+        });
+
     },
     async teste(req, res) {
         return res.send("<html><body>Testezinho 22</body></html>")
+    },
+    async buscar_ecoponto(req, res) {
+        var id_busca = req.body
+        var ecoponto = new Ecoponto()
+
+        console.log("JSON ID: ")
+        console.log(id_busca)
+
+        Ecoponto.find(id_busca).then((ecoponto) => {
+            console.log(ecoponto)
+            res.send(ecoponto)
+        }).catch((erro) => {
+            console.log("Nao Encontroou")
+            res.send(erro)
+        })
+    },
+    async atualizar_ecoponto (req, res) {
+        var ecoponto = req.body.ecoponto
+        var id = ecoponto.ecopontoID
+
+        Ecoponto.update({ecopontoID: id}, ecoponto).then(()=>{
+            console.log("Ecoponto Atualizado!")
+        }).catch((erro) =>{
+            console.log("Erro ao atualizar!")
+        })
+
+        return res.json(ecoponto)
+    },
+    async desativar_ecoponto(req, res) {
+        var id = req.body
+
+        Ecoponto.update(id, {status: "Desativado"}).then(()=>{
+            console.log("Ecoponto desativado!")
+        }).catch((erro) =>{
+            console.log("Erro ao desativar!")
+        })
+
+        return res.json(id)
+    },
+    async reativar_ecoponto(req, res) {
+        var id = req.body
+
+        Ecoponto.update(id, {status: "Ativo"}).then(()=>{
+            console.log("Ecoponto ativado!")
+        }).catch((erro) =>{
+            console.log("Erro ao ativar!")
+        })
+
+        return res.json(id)
     }
 }
