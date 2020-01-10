@@ -15,12 +15,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-validator": "^6.3.0",
-<<<<<<< HEAD
     "mongodb": "^3.4.1",
-=======
     "google-distance": "^1.0.1",
-    "mongodb": "^3.4.0",
->>>>>>> b080dbac753e11b97680bd4c0b5f80728deceab6
     "mongoose": "^5.7.7",
     "mqtt": "^3.0.0",
     "node": "^13.3.0",
