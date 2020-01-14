@@ -48,7 +48,7 @@ app.listen(3000,() => {
         }
     ]
 
-    let gerador = GeradorDeRota()
+    let gerador = new GeradorDeRota()
     gerador.geraRotas(origem, ecopontos, caminhoes)
 
 })
