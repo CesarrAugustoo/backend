@@ -19,14 +19,14 @@ app.listen(3000,() => {
         },
         {
             latitude: -3.007,
-            longitude: -59.001,
+            longitude: -60.031,
             nivel: 80,
             volume: 100,
             diasSemColeta: 1
         },
         {
             latitude: -3.007,
-            longitude: -59.002,
+            longitude: -60.022,
             nivel: 80,
             volume: 100,
             diasSemColeta: 1
@@ -49,6 +49,10 @@ app.listen(3000,() => {
     ]
 
     let gerador = new GeradorDeRota()
-    gerador.geraRotas(origem, ecopontos, caminhoes)
-
+    // gerador.geraRotas(origem, ecopontos, caminhoes)
+    gerador.dividePorRegiao(ecopontos, 0, []).then((ecopontosPorRegiao) => {
+        console.log(ecopontosPorRegiao)
+    }).catch((erro) => {
+        console.log(erro)
+    })
 })
