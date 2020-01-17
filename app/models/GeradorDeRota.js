@@ -29,8 +29,10 @@ class GeradorDeRota {
 
             // Cria os grafos de todas as regiões
             this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
-                // this.criaRota(grafos[0])
-                // this.criaRota(grafos[1])
+                // Cria as rotas para cada grafo
+                for (var i = 0; i < grafos.length; i++) {
+                    this.criaRotas(grafo, caminhoes)
+                }
             })
         })
         
@@ -171,24 +173,40 @@ class GeradorDeRota {
     }
 
     /**
-     * Cria nova rota
+     * Cria as rotas para o grafo atual
      * @param grafo grafo a ser encontrada uma nova rota
      * @param caminhoes lista de caminhões disponíveis
     */
-    criaRota(grafo, caminhoes) {
+    criaRotas(grafo, caminhoes) {
         var Dijkstra = require('./Dijkstra')
-
-        // var grafoAtual = grafo
-        
-        // while (grafoAtual.length > 1 && caminhoes.length > 0) {
-
-        // }
 
         let dijkstra = new Dijkstra()
 
         dijkstra.executar(grafo.getMatrizDeAdjacencia(), 0)
-        console.log(dijkstra.getArrayVertices())
+        
+        const ecopontosOrdenados = dijkstra.getArrayVertices()
+
+        var volumeAtual = 0.0
+        var indiceCaminhao = 0
+
+        var rotas = []
+        rotas.push([])
+
+        for (var i = 0; i < ecopontosOrdenados.length; i++) {
+            if (volumeAtual <= caminhoes[indiceCaminhao].capacidade) {
+                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+            } else {
+                volumeAtual = 0.0
+                rotas.push([])
+                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+            }
+
+            volumeAtual += ecopontosOrdenados[i].volume
+        }
+
+        return rotas
     }
+
 }
 
 module.exports = GeradorDeRota;
