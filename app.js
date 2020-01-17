@@ -49,10 +49,10 @@ app.listen(3000,() => {
     ]
 
     let gerador = new GeradorDeRota()
-    // gerador.geraRotas(origem, ecopontos, caminhoes)
-    gerador.dividePorRegiao(ecopontos, 0, []).then((ecopontosPorRegiao) => {
-        console.log(ecopontosPorRegiao)
-    }).catch((erro) => {
-        console.log(erro)
-    })
+    gerador.geraRotas(origem, ecopontos, caminhoes)
+    // gerador.dividePorRegiao(ecopontos, 0, []).then((ecopontosPorRegiao) => {
+    //     console.log(ecopontosPorRegiao)
+    // }).catch((erro) => {
+    //     console.log(erro)
+    // })
 })

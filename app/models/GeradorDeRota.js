@@ -19,14 +19,53 @@ class GeradorDeRota {
         let ecopontosColetaveis = analisador.devolveEcopontosProntosPraColeta(ecopontos)
 
         // Divide ecopontos coletáveis por região
-        let regioes = this.dividePorRegiao(ecopontosColetaveis, 0, [])
-        
-        // Cria os grafos por regiao
-        var grafos = []
+        this.dividePorRegiao(ecopontosColetaveis, 0, []).then((regioes) => {
+            // Vetor de regiões
+            var regioesEncontradas = []
 
-        for (var i = 0; i < regioes.length; i++) {
-            grafos.push(criaGrafoDeRegiao(regioes[i]))
-        }
+            for (var i = 0; i < regioes.length; i++) {
+                regioesEncontradas.push(regioes[i].ecopontos)
+            }
+
+            // Cria os grafos de todas as regiões
+            this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
+                // this.criaRota(grafos[0])
+                // this.criaRota(grafos[1])
+            })
+        })
+        
+    }
+
+    /**
+     * Cria os grafos de todas as regiões existentes
+     * @param regioes Regiões encontradas
+     * @param indiceAtual Índice atual da iteração
+     * @param grafosPorRegiao Grafos criados até a iteração atual
+    */
+    criaGrafoDasRegioes(regioes, indiceAtual, grafosPorRegiao) {
+        return new Promise((resolve, reject) => {
+            var GeradorDeGrafo = require('./GeradorDeGrafo')
+
+            let gGrafo = new GeradorDeGrafo()
+
+            gGrafo.geraAPartirDe(regioes[indiceAtual]).then(() => {
+                let grafo = gGrafo.getGrafo()
+                grafosPorRegiao.push(grafo)
+
+                if (indiceAtual == regioes.length - 1) {
+                    resolve(grafosPorRegiao)
+                } else {
+                    this.criaGrafoDasRegioes(regioes, indiceAtual + 1, grafosPorRegiao).then(() => {
+                        resolve(grafosPorRegiao)
+                    }).catch((erro) => {
+                        reject(erro)
+                    })
+                }
+            }).catch((error) => {
+                reject(error)
+                console.log('Erro grafo')
+            })
+        })
     }
 
     /**
@@ -40,8 +79,9 @@ class GeradorDeRota {
 
             gGrafo.geraAPartirDe(regiao).then(() => {
                 let grafo = gGrafo.getGrafo()
-
-            }).catch(() => {
+                resolve(grafo)
+            }).catch((error) => {
+                reject(error)
                 console.log('Erro grafo')
             })
         })
@@ -54,9 +94,7 @@ class GeradorDeRota {
         return new Promise((resolve, reject) => {
             this.buscaRegiaoDoEcoponto(ecopontos[indiceAtual]).then((regiao) => {
                 ecopontos[indiceAtual].regiao = regiao
-
-                console.log(regiao)
-
+                
                 var adicionou = false
 
                 for(var i = 0; i < ecopontosPorRegiao.length; i++) {
@@ -135,9 +173,16 @@ class GeradorDeRota {
     /**
      * Cria nova rota
      * @param grafo grafo a ser encontrada uma nova rota
+     * @param caminhoes lista de caminhões disponíveis
     */
-    criaRota(grafo) {
+    criaRota(grafo, caminhoes) {
         var Dijkstra = require('./Dijkstra')
+
+        // var grafoAtual = grafo
+        
+        // while (grafoAtual.length > 1 && caminhoes.length > 0) {
+
+        // }
 
         let dijkstra = new Dijkstra()
 
