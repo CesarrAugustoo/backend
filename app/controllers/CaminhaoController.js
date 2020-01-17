@@ -51,5 +51,17 @@ module.exports = {
             console.log("Nao Encontrou")
             res.send(erro)
         })
+    },
+    async atualizar_caminhao (req, res) {
+        var caminhao = req.body
+        var id = caminhao.caminhaoID
+
+        Caminhao.update({caminhaoID: id}, caminhao).then(()=>{
+            console.log("Ecoponto Atualizado!")
+        }).catch((erro) =>{
+            console.log("Erro ao atualizar!")
+        })
+
+        return res.json(caminhao)
     }
 }
