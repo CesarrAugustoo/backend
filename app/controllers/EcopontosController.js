@@ -56,6 +56,7 @@ module.exports = {
 
         Ecoponto.find(id_busca).then((ecoponto) => {
             console.log(ecoponto)
+            res.send(ecoponto)
             if(ecoponto.body == null) {
                 res.send("Nao encontrou")
             }
