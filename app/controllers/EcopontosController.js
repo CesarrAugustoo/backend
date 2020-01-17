@@ -9,14 +9,6 @@ module.exports = {
             console.log("Nao Encontroou")
             res.send(erro)
         })
-        // try{
-        //     var ecopontos = await Ecopontos.find()
-        //     console.log("Entrou lista")
-        //     res.send(ecopontos)
-        // }
-        // catch{
-        //     console.log('Erro no BD!')
-        // }
         
     },
     async cadastrar_ecopontos(req, res){
@@ -43,8 +35,9 @@ module.exports = {
 
             Ecoponto.create(ecoponto).then((ecoponto) =>{
                 console.log("Ecoponto adicionado")
-            }).catch(() =>{
+            }).catch((erro) =>{
                 console.log("erro ao adicionar!")
+                console.log(erro)
             })
 
             return res.json(ecoponto)
@@ -63,9 +56,14 @@ module.exports = {
 
         Ecoponto.find(id_busca).then((ecoponto) => {
             console.log(ecoponto)
-            res.send(ecoponto)
+            if(ecoponto.body == null) {
+                res.send("Nao encontrou")
+            }
+            else{
+                res.send(ecoponto)
+            }
         }).catch((erro) => {
-            console.log("Nao Encontroou")
+            console.log("Erro na busca")
             res.send(erro)
         })
     },
@@ -84,7 +82,7 @@ module.exports = {
     async desativar_ecoponto(req, res) {
         var id = req.body
 
-        Ecoponto.update(id, {status: "Desativado"}).then(()=>{
+        Ecoponto.update(id, {status: "Inativo"}).then(()=>{
             console.log("Ecoponto desativado!")
         }).catch((erro) =>{
             console.log("Erro ao desativar!")

@@ -45,23 +45,69 @@ module.exports = {
         console.log(id_busca)
 
         Caminhao.find(id_busca).then((caminhao) => {
-            console.log(caminhao)
-            res.send(caminhao)
+            if(caminhao.body == null) {
+                res.send("Nao encontrou")
+            }
+            else{
+                res.send(caminhao)
+            }
         }).catch((erro) => {
-            console.log("Nao Encontrou")
+            console.log("Erro na busca")
             res.send(erro)
         })
     },
     async atualizar_caminhao (req, res) {
-        var caminhao = req.body
+        var caminhao = req.body.caminhao
         var id = caminhao.caminhaoID
 
-        Caminhao.update({caminhaoID: id}, caminhao).then(()=>{
-            console.log("Ecoponto Atualizado!")
+        Caminhao.updateOne({caminhaoID: id}, caminhao).then((callback)=>{
+            if(callback.n == 0){
+                console.log("Caminhao nao encontrado!")
+                return res.json("Not found.")
+            }
+            else{
+                console.log("Caminhao Atualizado!")
+                return res.json(caminhao)
+            }
         }).catch((erro) =>{
             console.log("Erro ao atualizar!")
-        })
+            return res.json("Error")
+        })     
+    },
+    async desativar_caminhao(req, res) {
+        var id = req.body
 
-        return res.json(caminhao)
+         Caminhao.updateOne(id, {status: "Inativo"}).then((callback)=>{
+            if(callback.n == 0) {
+                console.log("Caminhao não encontrado!")
+                return res.json("Not Found.")
+            }
+            else {
+                console.log("Caminhao desativado!")
+                return res.json("Done.")
+            }
+        }).catch((erro) =>{
+            console.log("Erro ao desativar!")
+            console.log(erro)
+            return res.json("Error.")
+        })
+    },
+    async reativar_caminhao(req, res) {
+        var id = req.body
+
+        Caminhao.updateOne(id, {status: "Ativo"}).then((callback)=>{
+            if(callback.n == 0) {
+                console.log("Caminhao não encontrado!")
+                return res.json("Not Found.")
+            }
+            else {
+                console.log("Caminhao ativado!")
+                return res.json("Done.")
+            }
+        }).catch((erro) =>{
+            console.log("Erro ao ativar!")
+            console.log(erro)
+            return res.json("Error.")
+        })
     }
 }

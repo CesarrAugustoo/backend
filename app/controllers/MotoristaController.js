@@ -47,11 +47,61 @@ module.exports = {
         Motorista.find(id_busca).then((motorista) => {
             if(motorista.body == null) {
                 res.send("Nao encontrou")
-            } else{
-            res.send(motorista) }
+            }
+            else{
+                res.send(motorista)
+            }
         }).catch((erro) => {
             console.log("Erro na busca")
             res.send(erro)
+        })
+    },
+    async atualizar_motorista (req, res) {
+        var motorista = req.body.motorista
+        var id = motorista.motoristaID
+
+        Motorista.updateOne({motoristaID: id}, motorista).then(()=>{
+            console.log("Motorista Atualizado!")
+        }).catch((erro) =>{
+            console.log("Erro ao atualizar!")
+        })
+
+        return res.json(motorista)
+    },
+    async desativar_motorista(req, res) {
+        var id = req.body
+
+         Motorista.updateOne(id, {status: "Inativo"}).then((motorista)=>{
+            if(motorista.n == 0) {
+                console.log("Motorista não encontrado!")
+                return res.json("Not Found.")
+            }
+            else {
+                console.log("Motorista desativado!")
+                return res.json("Done.")
+            }
+        }).catch((erro) =>{
+            console.log("Erro ao desativar!")
+            console.log(erro)
+            return res.json("Error.")
+        })
+    },
+    async reativar_motorista(req, res) {
+        var id = req.body
+
+        Motorista.updateOne(id, {status: "Ativo"}).then((motorista)=>{
+            if(motorista.n == 0) {
+                console.log("Motorista não encontrado!")
+                return res.json("Not Found.")
+            }
+            else {
+                console.log("Motorista ativado!")
+                return res.json("Done.")
+            }
+        }).catch((erro) =>{
+            console.log("Erro ao ativar!")
+            console.log(erro)
+            return res.json("Error.")
         })
     }
 }

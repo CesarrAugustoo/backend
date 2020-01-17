@@ -33,4 +33,4 @@ var CaminhaoSchema = new Schema({
     timestamps: true
 })
 
-module.exports = model('caminhao', CaminhaoSchema)
+module.exports = model('caminhoe', CaminhaoSchema)
