@@ -11,31 +11,38 @@ class GeradorDeRota {
      * @param caminhoes Lista de caminhões cadastrados no sistema
     */
     geraRotas(origem, ecopontos, caminhoes) {
-        // Requisita analisador de ecopontos
-        var AnalisadorDeEcoponto = require('./AnalisadorDeEcoponto')
+        return new Promise((resolve, reject) => {
+            // Requisita analisador de ecopontos
+            var AnalisadorDeEcoponto = require('./AnalisadorDeEcoponto')
 
-        // Verifica ecopontos coletáveis
-        let analisador = new AnalisadorDeEcoponto()
-        let ecopontosColetaveis = analisador.devolveEcopontosProntosPraColeta(ecopontos)
+            // Verifica ecopontos coletáveis
+            let analisador = new AnalisadorDeEcoponto()
+            let ecopontosColetaveis = analisador.devolveEcopontosProntosPraColeta(ecopontos)
 
-        // Divide ecopontos coletáveis por região
-        this.dividePorRegiao(ecopontosColetaveis, 0, []).then((regioes) => {
-            // Vetor de regiões
-            var regioesEncontradas = []
+            // Divide ecopontos coletáveis por região
+            this.dividePorRegiao(ecopontosColetaveis, 0, []).then((regioes) => {
+                // Vetor de regiões
+                var regioesEncontradas = []
 
-            for (var i = 0; i < regioes.length; i++) {
-                regioesEncontradas.push(regioes[i].ecopontos)
-            }
-
-            // Cria os grafos de todas as regiões
-            this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
-                // Cria as rotas para cada grafo
-                for (var i = 0; i < grafos.length; i++) {
-                    this.criaRotas(grafo, caminhoes)
+                for (var i = 0; i < regioes.length; i++) {
+                    regioesEncontradas.push(regioes[i].ecopontos)
                 }
+
+                var rotas = []
+                // Cria os grafos de todas as regiões
+                this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
+                    // Cria as rotas para cada grafo
+                    for (var i = 0; i < grafos.length; i++) {
+                        rotas.push(this.criaRotas(grafo, caminhoes))
+                    }
+                    resolve(rotas)
+                }).catch((erro) => {
+                    reject(erro)
+                })
+            }).catch((erro) => {
+                reject(erro)
             })
         })
-        
     }
 
     /**
