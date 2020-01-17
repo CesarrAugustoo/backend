@@ -23,7 +23,7 @@ var EcopontoSchema = new Schema({
     },
     endereco: {
         type: String, 
-        required: true
+        required: false
     },
     nivelCheio: {
         type: Number, 
