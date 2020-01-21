@@ -53,7 +53,7 @@ class GeradorDeRota {
     */
     criaGrafoDasRegioes(regioes, indiceAtual, grafosPorRegiao) {
         return new Promise((resolve, reject) => {
-            var GeradorDeGrafo = require('./GeradorDeGrafo')
+            var GeradorDeGrafo = require("./GeradorDeGrafo")
 
             let gGrafo = new GeradorDeGrafo()
 

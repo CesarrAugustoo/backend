@@ -34,8 +34,8 @@ class GeradorDeGrafo {
             // Cria todas as arestas entre todos os ecopontos
             this.getArestas(listaEcopontos, 0, 0).then(() => {
                 resolve()
-            }).catch(() => {
-                reject()
+            }).catch((erro) => {
+                reject(erro)
             })
         })
     }
