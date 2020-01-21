@@ -30,8 +30,10 @@ class GeradorDeRota {
 
                 var rotas = []
                 // Cria os grafos de todas as regiões
+                console.log("456")
                 this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
                     // Cria as rotas para cada grafo
+                    console.log("123")
                     for (var i = 0; i < grafos.length; i++) {
                         rotas.push(this.criaRotas(grafos[i], caminhoes))
                     }
@@ -53,7 +55,8 @@ class GeradorDeRota {
     */
     criaGrafoDasRegioes(regioes, indiceAtual, grafosPorRegiao) {
         return new Promise((resolve, reject) => {
-            var GeradorDeGrafo = require('./GeradorDeGrafo')
+
+            var GeradorDeGrafo = require("./GeradorDeGrafo");
 
             let gGrafo = new GeradorDeGrafo()
 
@@ -68,6 +71,7 @@ class GeradorDeRota {
                         resolve(grafosPorRegiao)
                     }).catch((erro) => {
                         reject(erro)
+                        console.log(erro)
                     })
                 }
             }).catch((error) => {
