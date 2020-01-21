@@ -1,13 +1,12 @@
 class Grafo {
-    // Vertices do Grafo
-    vertices = []
-    // Arestas do Grafo
-    arestas = []
-    //Matriz de Adjacência gerada pelo Grafo
-    matrizAdjacencia = []
 
     constructor() {
-        
+        // Vertices do Grafo
+    this.vertices = []
+    // Arestas do Grafo
+    this.arestas = []
+    //Matriz de Adjacência gerada pelo Grafo
+    this.matrizAdjacencia = []        
     }
 
     /**
@@ -98,19 +97,25 @@ class Grafo {
 }
 
 class Vertice {
-    // Rótulo do Vértice
-    rotulo
+    
+
+    constructor() {
+        // Rótulo do Vértice
+    this.rotulo
     // Peso do Peso
-    peso
+    this.peso
+    }
 }
 
 class Aresta {
+    constructor() {
+        // Vértice da Aresta
+    this.vertice1
     // Vértice da Aresta
-    vertice1
-    // Vértice da Aresta
-    vertice2
+    this.vertice2
     // Peso da Aresta
-    peso
+    this.peso
+    }
 }
 
 module.exports = Grafo;
