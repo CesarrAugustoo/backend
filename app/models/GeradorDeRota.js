@@ -33,7 +33,7 @@ class GeradorDeRota {
                 this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
                     // Cria as rotas para cada grafo
                     for (var i = 0; i < grafos.length; i++) {
-                        rotas.push(this.criaRotas(grafo, caminhoes))
+                        rotas.push(this.criaRotas(grafos[i], caminhoes))
                     }
                     resolve(rotas)
                 }).catch((erro) => {
@@ -201,11 +201,11 @@ class GeradorDeRota {
 
         for (var i = 0; i < ecopontosOrdenados.length; i++) {
             if (volumeAtual <= caminhoes[indiceCaminhao].capacidade) {
-                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+                rotas[rotas.length - 1].push(ecopontosOrdenados[i])
             } else {
                 volumeAtual = 0.0
                 rotas.push([])
-                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+                rotas[rotas.length - 1].push(ecopontosOrdenados[i])
             }
 
             volumeAtual += ecopontosOrdenados[i].volume
