@@ -11,22 +11,70 @@ class GeradorDeRota {
      * @param caminhoes Lista de caminhões cadastrados no sistema
     */
     geraRotas(origem, ecopontos, caminhoes) {
-        // Requisita analisador de ecopontos
-        var AnalisadorDeEcoponto = require('./AnalisadorDeEcoponto')
+        return new Promise((resolve, reject) => {
+            // Requisita analisador de ecopontos
+            var AnalisadorDeEcoponto = require('./AnalisadorDeEcoponto')
 
-        // Verifica ecopontos coletáveis
-        let analisador = new AnalisadorDeEcoponto()
-        let ecopontosColetaveis = analisador.devolveEcopontosProntosPraColeta(ecopontos)
+            // Verifica ecopontos coletáveis
+            let analisador = new AnalisadorDeEcoponto()
+            let ecopontosColetaveis = analisador.devolveEcopontosProntosPraColeta(ecopontos)
 
-        // Divide ecopontos coletáveis por região
-        let regioes = this.dividePorRegiao(ecopontosColetaveis, 0, [])
-        
-        // Cria os grafos por regiao
-        var grafos = []
+            // Divide ecopontos coletáveis por região
+            this.dividePorRegiao(ecopontosColetaveis, 0, []).then((regioes) => {
+                // Vetor de regiões
+                var regioesEncontradas = []
 
-        for (var i = 0; i < regioes.length; i++) {
-            grafos.push(criaGrafoDeRegiao(regioes[i]))
-        }
+                for (var i = 0; i < regioes.length; i++) {
+                    regioesEncontradas.push(regioes[i].ecopontos)
+                }
+
+                var rotas = []
+                // Cria os grafos de todas as regiões
+                this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
+                    // Cria as rotas para cada grafo
+                    for (var i = 0; i < grafos.length; i++) {
+                        rotas.push(this.criaRotas(grafo, caminhoes))
+                    }
+                    resolve(rotas)
+                }).catch((erro) => {
+                    reject(erro)
+                })
+            }).catch((erro) => {
+                reject(erro)
+            })
+        })
+    }
+
+    /**
+     * Cria os grafos de todas as regiões existentes
+     * @param regioes Regiões encontradas
+     * @param indiceAtual Índice atual da iteração
+     * @param grafosPorRegiao Grafos criados até a iteração atual
+    */
+    criaGrafoDasRegioes(regioes, indiceAtual, grafosPorRegiao) {
+        return new Promise((resolve, reject) => {
+            var GeradorDeGrafo = require('./GeradorDeGrafo')
+
+            let gGrafo = new GeradorDeGrafo()
+
+            gGrafo.geraAPartirDe(regioes[indiceAtual]).then(() => {
+                let grafo = gGrafo.getGrafo()
+                grafosPorRegiao.push(grafo)
+
+                if (indiceAtual == regioes.length - 1) {
+                    resolve(grafosPorRegiao)
+                } else {
+                    this.criaGrafoDasRegioes(regioes, indiceAtual + 1, grafosPorRegiao).then(() => {
+                        resolve(grafosPorRegiao)
+                    }).catch((erro) => {
+                        reject(erro)
+                    })
+                }
+            }).catch((error) => {
+                reject(error)
+                console.log('Erro grafo')
+            })
+        })
     }
 
     /**
@@ -40,8 +88,9 @@ class GeradorDeRota {
 
             gGrafo.geraAPartirDe(regiao).then(() => {
                 let grafo = gGrafo.getGrafo()
-
-            }).catch(() => {
+                resolve(grafo)
+            }).catch((error) => {
+                reject(error)
                 console.log('Erro grafo')
             })
         })
@@ -54,9 +103,7 @@ class GeradorDeRota {
         return new Promise((resolve, reject) => {
             this.buscaRegiaoDoEcoponto(ecopontos[indiceAtual]).then((regiao) => {
                 ecopontos[indiceAtual].regiao = regiao
-
-                console.log(regiao)
-
+                
                 var adicionou = false
 
                 for(var i = 0; i < ecopontosPorRegiao.length; i++) {
@@ -133,17 +180,40 @@ class GeradorDeRota {
     }
 
     /**
-     * Cria nova rota
+     * Cria as rotas para o grafo atual
      * @param grafo grafo a ser encontrada uma nova rota
+     * @param caminhoes lista de caminhões disponíveis
     */
-    criaRota(grafo) {
+    criaRotas(grafo, caminhoes) {
         var Dijkstra = require('./Dijkstra')
 
         let dijkstra = new Dijkstra()
 
         dijkstra.executar(grafo.getMatrizDeAdjacencia(), 0)
-        console.log(dijkstra.getArrayVertices())
+        
+        const ecopontosOrdenados = dijkstra.getArrayVertices()
+
+        var volumeAtual = 0.0
+        var indiceCaminhao = 0
+
+        var rotas = []
+        rotas.push([])
+
+        for (var i = 0; i < ecopontosOrdenados.length; i++) {
+            if (volumeAtual <= caminhoes[indiceCaminhao].capacidade) {
+                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+            } else {
+                volumeAtual = 0.0
+                rotas.push([])
+                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+            }
+
+            volumeAtual += ecopontosOrdenados[i].volume
+        }
+
+        return rotas
     }
+
 }
 
 module.exports = GeradorDeRota;
