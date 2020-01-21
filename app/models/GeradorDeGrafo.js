@@ -5,6 +5,7 @@ class GeradorDeGrafo {
     // Grafo gerado a partir dos vértices
     grafo
 
+    
     /**
      * Este método inicializa uma instância de um grafo
     */

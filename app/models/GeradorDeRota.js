@@ -33,7 +33,7 @@ class GeradorDeRota {
                 this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
                     // Cria as rotas para cada grafo
                     for (var i = 0; i < grafos.length; i++) {
-                        rotas.push(this.criaRotas(grafo, caminhoes))
+                        rotas.push(this.criaRotas(grafos, caminhoes))
                     }
                     resolve(rotas)
                 }).catch((erro) => {
