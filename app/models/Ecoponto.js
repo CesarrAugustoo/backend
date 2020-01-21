@@ -1,7 +1,5 @@
 var {model, Schema} = require('mongoose')
 
-var {model, Schema} = require('mongoose')
-
 var EcopontoSchema = new Schema({
     nome: {
         type: String, 
@@ -22,6 +20,10 @@ var EcopontoSchema = new Schema({
     longitude: {
         type: Number, 
         required: true
+    },
+    endereco: {
+        type: String, 
+        required: false
     },
     nivelCheio: {
         type: Number, 
