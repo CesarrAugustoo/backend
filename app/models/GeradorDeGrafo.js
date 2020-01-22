@@ -36,9 +36,7 @@ class GeradorDeGrafo {
             this.getArestas(listaEcopontos, 0, 0).then(() => {
                 resolve()
             }).catch((erro) => {
-                reject()
-                console.log("Erro")
-                console.log(erro)
+                reject(erro)
             })
         })
     }
