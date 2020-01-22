@@ -30,10 +30,8 @@ class GeradorDeRota {
 
                 var rotas = []
                 // Cria os grafos de todas as regiões
-                console.log("456")
                 this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
                     // Cria as rotas para cada grafo
-                    console.log("123")
                     for (var i = 0; i < grafos.length; i++) {
                         rotas.push(this.criaRotas(grafos[i], caminhoes))
                     }

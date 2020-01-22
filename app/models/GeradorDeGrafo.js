@@ -2,9 +2,9 @@ class GeradorDeGrafo {
 
     constructor() {
         // Lista de Vértices do Grafo
-    this.vertices = []
-    // Grafo gerado a partir dos vértices
-    this.grafo
+        this.vertices = []
+        // Grafo gerado a partir dos vértices
+        this.grafo
     }
     
     /**

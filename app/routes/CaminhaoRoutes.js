@@ -1,5 +1,6 @@
 var CaminhaoControllers = require('../controllers/CaminhaoController.js')
 
+// Caminhos que a aplicação usará para pegar ou postas informações
 module.exports = function (application) {
     application.get('/lista_caminhoes', CaminhaoControllers.lista_caminhoes)
     application.post('/cadastrar_caminhao', CaminhaoControllers.cadastrar_caminhao)

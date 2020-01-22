@@ -1,5 +1,6 @@
 var MotoristaControllers = require('../controllers/MotoristaController.js')
 
+// Caminhos que a aplicação usará para pegar ou postas informações
 module.exports = function (application) {
     application.get('/lista_motoristas', MotoristaControllers.lista_motoristas)
     application.post('/cadastrar_motorista', MotoristaControllers.cadastrar_motorista)
