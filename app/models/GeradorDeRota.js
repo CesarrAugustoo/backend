@@ -30,10 +30,8 @@ class GeradorDeRota {
 
                 var rotas = []
                 // Cria os grafos de todas as regiões
-                console.log("456")
                 this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
                     // Cria as rotas para cada grafo
-                    console.log("123")
                     for (var i = 0; i < grafos.length; i++) {
                         rotas.push(this.criaRotas(grafos[i], caminhoes))
                     }
@@ -146,8 +144,15 @@ class GeradorDeRota {
     buscaRegiaoDoEcoponto(ecoponto) {
         // Requisita NodeGeocoder
         var NodeGeocoder = require('node-geocoder')
+        // Requisita GeradorDeRegiao
+        var GeradorDeRegiao = require('./GeradorDeRegiao')
+        
+        var gRegiao = new GeradorDeRegiao()
+
+        var regioes = gRegiao.geraRegiaoPorGeografia()
+
         // Requisita regioes
-        var regioes = require('./../constantes/regioes')
+        // var regioes = require('./../constantes/regioes')
 
         return new Promise((resolve, reject) => {
             var latlng = {lat: parseFloat(-3.091347), lng: parseFloat(-60.017486)}
