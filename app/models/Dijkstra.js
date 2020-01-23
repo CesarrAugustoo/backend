@@ -1,11 +1,13 @@
 class Dijkstra {
 
-    // Matriz de Adjacência
-    matrizAdjacencia = []
-    // Lista de Distâncias da Origem
-    distanciaDaOrigem = []
-    // Lista de Booleanos indicando se é o Menor Caminho
-    menorCaminho = []
+    constructor() {
+        // Matriz de Adjacência
+        this.matrizAdjacencia = []
+        // Lista de Distâncias da Origem
+        this.distanciaDaOrigem = []
+        // Lista de Booleanos indicando se é o Menor Caminho
+        this.menorCaminho = []
+    }
 
     /**
      * Este inicializa as listas necessárias ao algoritmo de Dijkstra

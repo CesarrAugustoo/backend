@@ -1,5 +1,9 @@
 var {model, Schema} = require('mongoose')
 
+// Atributos e variáveis que o caminhão pode ter 
+// type: tipo do atributo
+// required: ele é necessário se aparecer ou não
+
 var CaminhaoSchema = new Schema({
     placa: {
         type: String, 
@@ -33,4 +37,4 @@ var CaminhaoSchema = new Schema({
     timestamps: true
 })
 
-module.exports = model('caminhoe', CaminhaoSchema)
+module.exports = model('caminhao', CaminhaoSchema)

@@ -1,5 +1,9 @@
 var {model, Schema} = require('mongoose')
 
+// Atributos e variáveis que o ecoponto pode ter 
+// type: tipo do atributo
+// required: ele é necessário se aparecer ou não
+
 var EcopontoSchema = new Schema({
     nome: {
         type: String, 

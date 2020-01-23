@@ -48,8 +48,12 @@ app.listen(3000,() => {
         }
     ]
 
+    //var GeradorDeGrafo = require("./app/models/GeradorDeGrafo")
+
     let gerador = new GeradorDeRota()
-    gerador.geraRotas(origem, ecopontos, caminhoes)
+    gerador.geraRotas(origem, ecopontos, caminhoes).then((rotas) => {
+        console.log(rotas)
+    })
     // gerador.dividePorRegiao(ecopontos, 0, []).then((ecopontosPorRegiao) => {
     //     console.log(ecopontosPorRegiao)
     // }).catch((erro) => {

@@ -1,5 +1,9 @@
 var {model, Schema} = require('mongoose')
 
+// Atributos e variáveis que o motorista pode ter 
+// type: tipo do atributo
+// required: ele é necessário se aparecer ou não
+
 var MotoristaSchema = new Schema({
     nome: {
         type: String, 
@@ -33,4 +37,4 @@ var MotoristaSchema = new Schema({
     timestamps: true
 })
 
-module.exports = model('motorista', MotoristaSchema)
+module.exports = model('motoristas', MotoristaSchema)

@@ -33,7 +33,7 @@ class GeradorDeRota {
                 this.criaGrafoDasRegioes(regioesEncontradas, 0, []).then((grafos) => {
                     // Cria as rotas para cada grafo
                     for (var i = 0; i < grafos.length; i++) {
-                        rotas.push(this.criaRotas(grafo, caminhoes))
+                        rotas.push(this.criaRotas(grafos[i], caminhoes))
                     }
                     resolve(rotas)
                 }).catch((erro) => {
@@ -53,7 +53,7 @@ class GeradorDeRota {
     */
     criaGrafoDasRegioes(regioes, indiceAtual, grafosPorRegiao) {
         return new Promise((resolve, reject) => {
-            var GeradorDeGrafo = require('./GeradorDeGrafo')
+            var GeradorDeGrafo = require("./GeradorDeGrafo")
 
             let gGrafo = new GeradorDeGrafo()
 
@@ -68,6 +68,7 @@ class GeradorDeRota {
                         resolve(grafosPorRegiao)
                     }).catch((erro) => {
                         reject(erro)
+                        console.log(erro)
                     })
                 }
             }).catch((error) => {
@@ -143,8 +144,15 @@ class GeradorDeRota {
     buscaRegiaoDoEcoponto(ecoponto) {
         // Requisita NodeGeocoder
         var NodeGeocoder = require('node-geocoder')
+        // Requisita GeradorDeRegiao
+        var GeradorDeRegiao = require('./GeradorDeRegiao')
+        
+        var gRegiao = new GeradorDeRegiao()
+
+        var regioes = gRegiao.geraRegiaoPorGeografia()
+
         // Requisita regioes
-        var regioes = require('./../constantes/regioes')
+        // var regioes = require('./../constantes/regioes')
 
         return new Promise((resolve, reject) => {
             var latlng = {lat: parseFloat(-3.091347), lng: parseFloat(-60.017486)}
@@ -201,11 +209,11 @@ class GeradorDeRota {
 
         for (var i = 0; i < ecopontosOrdenados.length; i++) {
             if (volumeAtual <= caminhoes[indiceCaminhao].capacidade) {
-                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+                rotas[rotas.length - 1].push(ecopontosOrdenados[i])
             } else {
                 volumeAtual = 0.0
                 rotas.push([])
-                rotas[rotas.length - 1].push(grafo.ecopontosOrdenados[i])
+                rotas[rotas.length - 1].push(ecopontosOrdenados[i])
             }
 
             volumeAtual += ecopontosOrdenados[i].volume

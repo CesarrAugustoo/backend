@@ -1,10 +1,12 @@
 class GeradorDeGrafo {
 
-    // Lista de Vértices do Grafo
-    vertices = []
-    // Grafo gerado a partir dos vértices
-    //grafo
-
+    constructor() {
+        // Lista de Vértices do Grafo
+        this.vertices = []
+        // Grafo gerado a partir dos vértices
+        this.grafo
+    }
+    
     /**
      * Este método inicializa uma instância de um grafo
     */
@@ -23,10 +25,9 @@ class GeradorDeGrafo {
     geraAPartirDe(listaEcopontos) {
         // Retorna uma Promise
         return new Promise((resolve, reject) => {
-
             this.inicializaGrafo()
-
             // Percorre a lista de ecopontos para incluir os vertices no grafo
+            
             for (var i = 0; i < listaEcopontos.length; i++) {
                 this.vertices.push(this.grafo.addVertice(i, 1))
             }
@@ -34,8 +35,8 @@ class GeradorDeGrafo {
             // Cria todas as arestas entre todos os ecopontos
             this.getArestas(listaEcopontos, 0, 0).then(() => {
                 resolve()
-            }).catch(() => {
-                reject()
+            }).catch((erro) => {
+                reject(erro)
             })
         })
     }
