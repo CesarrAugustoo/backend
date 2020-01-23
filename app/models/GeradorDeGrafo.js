@@ -3,7 +3,7 @@ class GeradorDeGrafo {
     // Lista de Vértices do Grafo
     vertices = []
     // Grafo gerado a partir dos vértices
-    grafo
+    //grafo
 
     /**
      * Este método inicializa uma instância de um grafo
