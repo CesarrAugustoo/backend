@@ -64,7 +64,7 @@ module.exports = {
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
-            if(caminhao.body == null) {
+            if(caminhao == null) {
                 res.send("Nao encontrou")
             }
             // Se encontrar

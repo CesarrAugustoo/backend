@@ -62,7 +62,7 @@ module.exports = {
             // Entra se entrar no banco
             
             // Se não encontrar ninguém com esse id
-            if(motorista.body == null) {
+            if(motorista == null) {
                 res.send("Nao encontrou")
             }
             // Se encontrar, devolve o json do motorista
