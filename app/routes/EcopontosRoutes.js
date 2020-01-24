@@ -1,6 +1,6 @@
 var EcopontoControllers = require('../controllers/EcopontosController.js')
 
-// Caminhos que a aplicação usará para pegar ou postas informações
+// Caminhos que a aplicação usará para pegar ou postar informações
 module.exports = function (application) {
     application.get('/lista_ecopontos', EcopontoControllers.lista_ecopontos) 
     application.post('/cadastrar_ecoponto', EcopontoControllers.cadastrar_ecopontos)
