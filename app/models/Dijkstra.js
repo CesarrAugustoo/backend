@@ -2,11 +2,11 @@ class Dijkstra {
 
     constructor() {
         // Matriz de Adjacência
-    this.matrizAdjacencia = []
-    // Lista de Distâncias da Origem
-    this.distanciaDaOrigem = []
-    // Lista de Booleanos indicando se é o Menor Caminho
-    this.menorCaminho = []
+        this.matrizAdjacencia = []
+        // Lista de Distâncias da Origem
+        this.distanciaDaOrigem = []
+        // Lista de Booleanos indicando se é o Menor Caminho
+        this.menorCaminho = []
     }
 
     /**
