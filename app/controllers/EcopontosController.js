@@ -112,7 +112,6 @@ module.exports = {
             console.log("Erro ao atualizar!")
             return res.json(erro)
         })
-        return res.json(ecoponto)
     },
 
     // Desativar ecoponto, permite modificar o status do ecoponto para INATIVO.
