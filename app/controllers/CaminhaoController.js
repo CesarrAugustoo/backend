@@ -60,11 +60,11 @@ module.exports = {
         console.log(id_busca)
 
         // Encontrar o motorista com esse ID
-        Caminhao.find(id_busca).then((caminhao) => {
+        Caminhao.findOne(id_busca).then((caminhao) => {
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
-            if(caminhao.body == null) {
+            if(caminhao == null) {
                 res.send("Nao encontrou")
             }
             // Se encontrar

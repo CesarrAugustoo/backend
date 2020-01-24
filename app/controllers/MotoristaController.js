@@ -58,11 +58,11 @@ module.exports = {
         console.log("JSON ID: ")
         console.log(id_busca)
         // Encontrar o motorista com esse ID
-        Motorista.find(id_busca).then((motorista) => {
+        Motorista.findOne(id_busca).then((motorista) => {
             // Entra se entrar no banco
             
             // Se não encontrar ninguém com esse id
-            if(motorista.body == null) {
+            if(motorista == null) {
                 res.send("Nao encontrou")
             }
             // Se encontrar, devolve o json do motorista
