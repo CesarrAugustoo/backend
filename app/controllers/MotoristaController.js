@@ -104,7 +104,6 @@ module.exports = {
             console.log("Erro ao atualizar!")
             return res.json(erro)
         })
-        return res.json(motorista)
     },
 
     // Desativar motorista, permite modificar o status do motorista para INATIVO.
@@ -131,8 +130,7 @@ module.exports = {
         // Se não conseguir entrar no banco ou ocorrer qualquer erro
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
-            console.log(erro)
-            return res.json("Error.")
+            return res.json(erro)
         })
     },
 
@@ -160,7 +158,6 @@ module.exports = {
         // Se não entrar no banco ou a qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
-            console.log(erro)
             return res.json(erro)
         })
     }
