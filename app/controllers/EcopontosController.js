@@ -67,7 +67,7 @@ module.exports = {
         // Encontrar o motorista com esse ID
         Ecoponto.find(id_busca).then((ecoponto) => {
             // Se entrar no banco
-            
+            res.send(ecoponto)
             // Se não encontrar nenhum id no banco
             if(ecoponto.body == null) {
                 res.send("Nao encontrou")
