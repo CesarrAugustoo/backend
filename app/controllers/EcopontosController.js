@@ -48,8 +48,8 @@ module.exports = {
             }).catch((erro) =>{
                 console.log("erro ao adicionar!")
                 console.log(erro)
+                return res.json(ecoponto)
             })
-            return res.json(ecoponto)
         });
 
     },
@@ -65,16 +65,16 @@ module.exports = {
         console.log("JSON ID: ")
         console.log(id_busca)
         // Encontrar o motorista com esse ID
-        Ecoponto.find(id_busca).then((ecoponto) => {
+        Ecoponto.findOne(id_busca).then((ecoponto) => {
             // Se entrar no banco
-            res.send(ecoponto)
             // Se não encontrar nenhum id no banco
-            if(ecoponto.body == null) {
+            if(ecoponto == null) {
                 res.send("Nao encontrou")
             }
             // Se encontrar
             else{
                 res.send(ecoponto)
+                console.log(ecoponto)
             }
         // Se não entrar no banco ou ocorrer qualquer erro.
         }).catch((erro) => {
@@ -111,7 +111,6 @@ module.exports = {
             console.log("Erro ao atualizar!")
             return res.json(erro)
         })
-        return res.json(ecoponto)
     },
 
     // Desativar ecoponto, permite modificar o status do ecoponto para INATIVO.
@@ -137,9 +136,8 @@ module.exports = {
 
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
+            return res.json(id)
         })
-
-        return res.json(id)
     },
     
     // Desativar ecoponto, permite modificar o status do ecoponto para ATIVO.
@@ -165,8 +163,7 @@ module.exports = {
 
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
+            return res.json(id)
         })
-
-        return res.json(id)
     }
 }

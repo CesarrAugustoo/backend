@@ -42,9 +42,9 @@ module.exports = {
             }).catch((erro) =>{
                 console.log("Erro ao adicionar!")
                 console.log(erro)
+                return res.json(caminhao)
             })
 
-            return res.json(caminhao)
         });
     },
 
@@ -60,11 +60,11 @@ module.exports = {
         console.log(id_busca)
 
         // Encontrar o motorista com esse ID
-        Caminhao.find(id_busca).then((caminhao) => {
+        Caminhao.findOne(id_busca).then((caminhao) => {
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
-            if(caminhao.body == null) {
+            if(caminhao == null) {
                 res.send("Nao encontrou")
             }
             // Se encontrar
@@ -106,7 +106,6 @@ module.exports = {
             console.log("Erro ao atualizar!")
             return res.json(erro)
         })     
-        return res.json(caminhao)
     },
 
     // Desativar caminhao, permite modificar o status do caminhao para INATIVO.
@@ -135,7 +134,6 @@ module.exports = {
             console.log("Erro ao desativar!")
             return res.json(erro)
         })
-        return res.json(id)
     },
 
     // Reativar caminhao, permite modificar o status do caminhao para ATIVO.
@@ -164,6 +162,5 @@ module.exports = {
             console.log("Erro ao ativar!")
             return res.json(erro)
         })
-        return res.json(id)
     }
 }
