@@ -48,8 +48,8 @@ module.exports = {
             }).catch((erro) =>{
                 console.log("erro ao adicionar!")
                 console.log(erro)
+                return res.json(ecoponto)
             })
-            return res.json(ecoponto)
         });
 
     },
@@ -112,7 +112,6 @@ module.exports = {
             console.log("Erro ao atualizar!")
             return res.json(erro)
         })
-        return res.json(ecoponto)
     },
 
     // Desativar ecoponto, permite modificar o status do ecoponto para INATIVO.
@@ -138,9 +137,8 @@ module.exports = {
 
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
+            return res.json(id)
         })
-
-        return res.json(id)
     },
     
     // Desativar ecoponto, permite modificar o status do ecoponto para ATIVO.
@@ -166,8 +164,7 @@ module.exports = {
 
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
+            return res.json(id)
         })
-
-        return res.json(id)
     }
 }
