@@ -7,7 +7,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_ecopontos(req, res){
         // Se encontrar
-        Ecoponto.find().then((ecoponto) => {
+        Ecoponto.find().sort({"status":1}).then((ecoponto) => {
             console.log("Encontroou")
             res.send(ecoponto)
         // Se não encontrar
@@ -15,6 +15,30 @@ module.exports = {
             console.log("Nao Encontroou")
             res.send(erro)
         })
+
+        // var ecoponto = req.body.ecoponto
+
+        // // Update ecoponto, a partir do ID, usar o json mandado para atualizar
+        // Ecoponto.updateMany({}, {"$set":{ status: int }}).then((listaecoponto)=>{
+        //     // Se entrar no banco
+            
+        //     // Se não encontrar nenhum id no banco
+        //     // 0 Documentos encontrados
+        //     if(listaecoponto.n == 0){
+        //         console.log("Ecoponto nao encontrado!")
+        //         return res.json("Not found.")
+        //     }
+        //     // Se encontrar
+        //     else{
+        //         console.log("Ecoponto Atualizado!")
+        //         return res.json(ecoponto)
+        //     }
+        // // Se não entrar no banco ou ocorrer qualquer erro.
+        // }).catch((erro) =>{
+        //     console.log("Erro ao atualizar!")
+        //     return res.json(erro)
+        // })
+       
         
     },
 
