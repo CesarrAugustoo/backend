@@ -7,7 +7,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_motoristas(req, res){
         // Se encontrar
-        Motorista.find().then((motorista) => {
+        Motorista.find().sort({"status":1}).then((motorista) => {
             console.log("Encontrou")
             res.send(motorista)
         // Se não
@@ -114,7 +114,7 @@ module.exports = {
         var id = req.body
 
         // A partir do ID, modificar o status para INATIVO
-         Motorista.updateOne(id, {status: "Inativo"}).then((listamotorista)=>{
+         Motorista.updateOne(id, {status: 9}).then((listamotorista)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum motorista
@@ -142,7 +142,7 @@ module.exports = {
         var id = req.body
 
         // A partir do ID, modificar os status para ATIVO
-        Motorista.updateOne(id, {status: "Ativo"}).then((listamotorista)=>{
+        Motorista.updateOne(id, {status: 1}).then((listamotorista)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum motorisa
