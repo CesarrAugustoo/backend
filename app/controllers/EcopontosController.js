@@ -145,7 +145,7 @@ module.exports = {
     async desativar_ecoponto(req, res) {
         var id = req.body
 
-        Ecoponto.updateOne(id, {status: "Inativo"}).then((listaecoponto)=>{
+        Ecoponto.updateOne(id, {status: 9}).then((listaecoponto)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum ecoponto
@@ -172,7 +172,7 @@ module.exports = {
     async reativar_ecoponto(req, res) {
         var id = req.body
 
-        Ecoponto.updateOne(id, {status: "Ativo"}).then((ecoponto)=>{
+        Ecoponto.updateOne(id, {status: 1}).then((ecoponto)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum ecoponto
