@@ -7,7 +7,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_caminhoes(req, res){
         //Se encontrar
-        Caminhao.find().then((caminhao) => {
+        Caminhao.find().sort({"status":1}).then((caminhao) => {
             console.log("Encontrou")
             res.send(caminhao)
         //Se não encontrar
@@ -115,7 +115,7 @@ module.exports = {
     async desativar_caminhao(req, res) {
         var id = req.body
 
-         Caminhao.updateOne(id, {status: "Inativo"}).then((listacaminhao)=>{
+         Caminhao.updateOne(id, {status: 9}).then((listacaminhao)=>{
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
@@ -143,7 +143,7 @@ module.exports = {
     async reativar_caminhao(req, res) {
         var id = req.body
 
-        Caminhao.updateOne(id, {status: "Ativo"}).then((listacaminhao)=>{
+        Caminhao.updateOne(id, {status: 1}).then((listacaminhao)=>{
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
