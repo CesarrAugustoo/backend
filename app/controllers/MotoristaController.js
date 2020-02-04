@@ -1,4 +1,5 @@
 var Motorista = require('../models/MotoristaModel.js')
+var Status = require('../models/StatusController.json')
 
 // Esse arquivo exporta métodos para a parte do motorista
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_motoristas(req, res){
         // Se encontrar
-        Motorista.find().sort({"status":1}).then((motorista) => {
+        Motorista.find().sort({"status": Status.Ativo}).then((motorista) => {
             console.log("Encontrou")
             res.send(motorista)
         // Se não
@@ -114,7 +115,7 @@ module.exports = {
         var id = req.body
 
         // A partir do ID, modificar o status para INATIVO
-         Motorista.updateOne(id, {status: 9}).then((listamotorista)=>{
+         Motorista.updateOne(id, {status: Status.Inativo}).then((listamotorista)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum motorista
@@ -142,7 +143,7 @@ module.exports = {
         var id = req.body
 
         // A partir do ID, modificar os status para ATIVO
-        Motorista.updateOne(id, {status: 1}).then((listamotorista)=>{
+        Motorista.updateOne(id, {status: Status.Ativo}).then((listamotorista)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum motorisa
