@@ -1,4 +1,5 @@
 var Motorista = require('../models/MotoristaModel.js')
+var Status = require('../models/StatusController.json')
 
 // Esse arquivo exporta métodos para a parte do motorista
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_motoristas(req, res){
         // Se encontrar
-        Motorista.find().then((motorista) => {
+        Motorista.find().sort({"status": Status.Ativo}).then((motorista) => {
             console.log("Encontrou")
             res.send(motorista)
         // Se não
@@ -104,7 +105,6 @@ module.exports = {
             console.log("Erro ao atualizar!")
             return res.json(erro)
         })
-        return res.json(motorista)
     },
 
     // Desativar motorista, permite modificar o status do motorista para INATIVO.
@@ -115,7 +115,7 @@ module.exports = {
         var id = req.body
 
         // A partir do ID, modificar o status para INATIVO
-         Motorista.updateOne(id, {status: "Inativo"}).then((listamotorista)=>{
+         Motorista.updateOne(id, {status: Status.Inativo}).then((listamotorista)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum motorista
@@ -131,8 +131,7 @@ module.exports = {
         // Se não conseguir entrar no banco ou ocorrer qualquer erro
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
-            console.log(erro)
-            return res.json("Error.")
+            return res.json(erro)
         })
     },
 
@@ -144,7 +143,7 @@ module.exports = {
         var id = req.body
 
         // A partir do ID, modificar os status para ATIVO
-        Motorista.updateOne(id, {status: "Ativo"}).then((listamotorista)=>{
+        Motorista.updateOne(id, {status: Status.Ativo}).then((listamotorista)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum motorisa
@@ -160,7 +159,6 @@ module.exports = {
         // Se não entrar no banco ou a qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
-            console.log(erro)
             return res.json(erro)
         })
     }

@@ -1,4 +1,5 @@
 var Caminhao = require('../models/CaminhaoModel.js')
+var Status = require('../models/StatusController.json')
 
 // Esse arquivo exporta os métodos para o caminhão
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_caminhoes(req, res){
         //Se encontrar
-        Caminhao.find().then((caminhao) => {
+        Caminhao.find().sort({"status": Status.Ativo}).then((caminhao) => {
             console.log("Encontrou")
             res.send(caminhao)
         //Se não encontrar
@@ -42,9 +43,9 @@ module.exports = {
             }).catch((erro) =>{
                 console.log("Erro ao adicionar!")
                 console.log(erro)
+                return res.json(caminhao)
             })
 
-            return res.json(caminhao)
         });
     },
 
@@ -106,7 +107,6 @@ module.exports = {
             console.log("Erro ao atualizar!")
             return res.json(erro)
         })     
-        return res.json(caminhao)
     },
 
     // Desativar caminhao, permite modificar o status do caminhao para INATIVO.
@@ -116,7 +116,7 @@ module.exports = {
     async desativar_caminhao(req, res) {
         var id = req.body
 
-         Caminhao.updateOne(id, {status: "Inativo"}).then((listacaminhao)=>{
+         Caminhao.updateOne(id, {status: Status.Inativo}).then((listacaminhao)=>{
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
@@ -135,7 +135,6 @@ module.exports = {
             console.log("Erro ao desativar!")
             return res.json(erro)
         })
-        return res.json(id)
     },
 
     // Reativar caminhao, permite modificar o status do caminhao para ATIVO.
@@ -145,7 +144,7 @@ module.exports = {
     async reativar_caminhao(req, res) {
         var id = req.body
 
-        Caminhao.updateOne(id, {status: "Ativo"}).then((listacaminhao)=>{
+        Caminhao.updateOne(id, {status: Status.Ativo}).then((listacaminhao)=>{
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
@@ -164,6 +163,5 @@ module.exports = {
             console.log("Erro ao ativar!")
             return res.json(erro)
         })
-        return res.json(id)
     }
 }
