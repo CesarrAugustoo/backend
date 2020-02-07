@@ -3,7 +3,6 @@ var Status = require('../models/StatusController.json')
 
 // Esse arquivo exporta os métodos para os ecopontos
 module.exports = {
-
     // Retorna uma lista de todos os ecopontos
     // dentro do banco de dados mongo.
     async lista_ecopontos(req, res){
@@ -16,9 +15,6 @@ module.exports = {
             console.log("Nao Encontroou")
             res.send(erro)
         })
-
-        //console.log(Status.Ativo)
-
         // var ecoponto = req.body.ecoponto
 
         // // Update ecoponto, a partir do ID, usar o json mandado para atualizar
@@ -42,7 +38,6 @@ module.exports = {
         //     return res.json(erro)
         // })
     },
-
     // Cadastrar ecopontos dentro do banco
     async cadastrar_ecopontos(req, res){
         var ecoponto = new Ecoponto()
@@ -58,8 +53,6 @@ module.exports = {
         }).then((qtd) => {
             // Zerando os valores iniciais
             // Criar ID com quantidade + 1
-
-            //console.log("valor de contagem: " + qtd)
             ecoponto.ecopontoID = qtd + 1
             ecoponto.nivelCheio = 0
             ecoponto.temperatura = 0
@@ -77,7 +70,6 @@ module.exports = {
             })
         });
     },
-
     // Método que permite buscar um ecoponto dentro do banco
     // Esse método irá pegar o ID dentro da requisição e usá-lo
     // Para retornar um JSON inteiro, contendo todas as informações
@@ -107,7 +99,6 @@ module.exports = {
             res.send(erro)
         })
     },
-
     // Método que permite atualizar as informações do ecoponto dentro do banco.
     // Neste método, o usuário irá mandar uma requisição contendo 
     // todas as informações que ele deseja que sejam modificadas.
@@ -119,7 +110,6 @@ module.exports = {
         // Update ecoponto, a partir do ID, usar o json mandado para atualizar
         Ecoponto.updateOne({ecopontoID: id}, ecoponto).then((listaecoponto)=>{
             // Se entrar no banco
-            
             // Se não encontrar nenhum id no banco
             // 0 Documentos encontrados
             if(listaecoponto.n == 0){
@@ -137,14 +127,12 @@ module.exports = {
             return res.json(erro)
         })
     },
-
     // Desativar ecoponto, permite modificar o status do ecoponto para INATIVO.
     // Neste método, o usuário será permitido mandar um ID, com isso,
     // O ecoponto que tiver esse ID no banco terá seu status modificado
     // para INATIVO.
     async desativar_ecoponto(req, res) {
         var id = req.body
-
         Ecoponto.updateOne(id, {status: Status.Inativo}).then((listaecoponto)=>{
             // Se entrar no banco
 
@@ -158,13 +146,11 @@ module.exports = {
                 console.log("Ecoponto desativado!")
                 return res.json("Done.")
             }
-
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
             return res.json(id)
         })
     },
-    
     // Desativar ecoponto, permite modificar o status do ecoponto para ATIVO.
     // Neste método, o usuário será permitido mandar um ID, com isso,
     // O ecoponto que tiver esse ID no banco terá seu status modificado
@@ -174,7 +160,6 @@ module.exports = {
 
         Ecoponto.updateOne(id, {status: Status.Ativo}).then((ecoponto)=>{
             // Se entrar no banco
-
             // Se não encontrar nenhum ecoponto
             if(ecoponto.n == 0) { // Se encontrar 0 documentos
                 console.log("Ecoponto não encontrado!")
@@ -185,10 +170,16 @@ module.exports = {
                 console.log("Ecoponto ativado!")
                 return res.json("Done.")
             }
-
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
             return res.json(id)
+        })
+    },
+    async deletar_tudo(req, res) {
+        Ecoponto.deleteMany({}).then(()=>{
+            res.send("Tudo deletado!")
+        }).catch((erro) =>{
+            res.send("Erro ao deletar!")
         })
     }
 }
