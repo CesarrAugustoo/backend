@@ -1,4 +1,5 @@
 var Caminhao = require('../models/CaminhaoModel.js')
+var Status = require('../models/StatusController.json')
 
 // Esse arquivo exporta os métodos para o caminhão
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_caminhoes(req, res){
         //Se encontrar
-        Caminhao.find().sort({"status":1}).then((caminhao) => {
+        Caminhao.find().sort({"status": Status.Ativo}).then((caminhao) => {
             console.log("Encontrou")
             res.send(caminhao)
         //Se não encontrar
@@ -115,7 +116,7 @@ module.exports = {
     async desativar_caminhao(req, res) {
         var id = req.body
 
-         Caminhao.updateOne(id, {status: 9}).then((listacaminhao)=>{
+         Caminhao.updateOne(id, {status: Status.Inativo}).then((listacaminhao)=>{
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco
@@ -143,7 +144,7 @@ module.exports = {
     async reativar_caminhao(req, res) {
         var id = req.body
 
-        Caminhao.updateOne(id, {status: 1}).then((listacaminhao)=>{
+        Caminhao.updateOne(id, {status: Status.Ativo}).then((listacaminhao)=>{
             // Se entrar no banco
             
             // Se não encontrar nenhum id no banco

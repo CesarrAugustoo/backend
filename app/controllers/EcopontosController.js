@@ -1,4 +1,5 @@
 var Ecoponto = require('../models/EcopontoModel.js')
+var Status = require('../models/StatusController.json')
 
 // Esse arquivo exporta os métodos para os ecopontos
 module.exports = {
@@ -7,7 +8,7 @@ module.exports = {
     // dentro do banco de dados mongo.
     async lista_ecopontos(req, res){
         // Se encontrar
-        Ecoponto.find().sort({"status":1}).then((ecoponto) => {
+        Ecoponto.find().sort({"status": Status.Ativo}).then((ecoponto) => {
             console.log("Encontroou")
             res.send(ecoponto)
         // Se não encontrar
@@ -15,6 +16,8 @@ module.exports = {
             console.log("Nao Encontroou")
             res.send(erro)
         })
+
+        //console.log(Status.Ativo)
 
         // var ecoponto = req.body.ecoponto
 
@@ -38,15 +41,13 @@ module.exports = {
         //     console.log("Erro ao atualizar!")
         //     return res.json(erro)
         // })
-       
-        
     },
 
     // Cadastrar ecopontos dentro do banco
     async cadastrar_ecopontos(req, res){
         var ecoponto = new Ecoponto()
         ecoponto = req.body.ecoponto;
-        ecoponto.status = "Inativo"
+        ecoponto.status = Status.Inativo
        
         // Criando IDs, o ID será o numero de instancias no banco + 1
         // Isso criará um ID auto-incremental
@@ -75,7 +76,6 @@ module.exports = {
                 return res.json(ecoponto)
             })
         });
-
     },
 
     // Método que permite buscar um ecoponto dentro do banco
@@ -145,7 +145,7 @@ module.exports = {
     async desativar_ecoponto(req, res) {
         var id = req.body
 
-        Ecoponto.updateOne(id, {status: 9}).then((listaecoponto)=>{
+        Ecoponto.updateOne(id, {status: Status.Inativo}).then((listaecoponto)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum ecoponto
@@ -172,7 +172,7 @@ module.exports = {
     async reativar_ecoponto(req, res) {
         var id = req.body
 
-        Ecoponto.updateOne(id, {status: 1}).then((ecoponto)=>{
+        Ecoponto.updateOne(id, {status: Status.Ativo}).then((ecoponto)=>{
             // Se entrar no banco
 
             // Se não encontrar nenhum ecoponto
