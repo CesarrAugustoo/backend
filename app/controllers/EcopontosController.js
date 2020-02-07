@@ -42,7 +42,7 @@ module.exports = {
     async cadastrar_ecopontos(req, res){
         var ecoponto = new Ecoponto()
         ecoponto = req.body.ecoponto;
-        ecoponto.status = Status.Inativo
+        console.log(ecoponto)
        
         // Criando IDs, o ID será o numero de instancias no banco + 1
         // Isso criará um ID auto-incremental
