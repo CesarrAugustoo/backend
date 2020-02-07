@@ -41,8 +41,6 @@ module.exports = {
         //     console.log("Erro ao atualizar!")
         //     return res.json(erro)
         // })
-       
-        
     },
 
     // Cadastrar ecopontos dentro do banco
@@ -78,7 +76,6 @@ module.exports = {
                 return res.json(ecoponto)
             })
         });
-
     },
 
     // Método que permite buscar um ecoponto dentro do banco
