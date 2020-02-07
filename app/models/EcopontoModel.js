@@ -48,6 +48,10 @@ var EcopontoSchema = new Schema({
     status: {
         type: Number,
         required: true
+    },
+    informacoes: {
+        type: String,
+        required: true
     }
 }, {
     timestamps: true
