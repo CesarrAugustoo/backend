@@ -62,6 +62,7 @@ module.exports = {
             // Adiciona o ecoponto ao banco
             Ecoponto.create(ecoponto).then((ecoponto) =>{
                 console.log("Ecoponto adicionado")
+                res.json(ecoponto)
             // Se ocorrer erro
             }).catch((erro) =>{
                 console.log("erro ao adicionar!")
