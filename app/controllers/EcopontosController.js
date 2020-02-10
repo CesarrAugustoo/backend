@@ -62,6 +62,7 @@ module.exports = {
             // Adiciona o ecoponto ao banco
             Ecoponto.create(ecoponto).then((ecoponto) =>{
                 console.log("Ecoponto adicionado")
+                res.json(ecoponto)
             // Se ocorrer erro
             }).catch((erro) =>{
                 console.log("erro ao adicionar!")
@@ -83,7 +84,6 @@ module.exports = {
         // Encontrar o motorista com esse ID
         Ecoponto.findOne(id_busca).then((ecoponto) => {
             // Se entrar no banco
-
             // Se não encontrar nenhum id no banco
             if(ecoponto == null) {
                 res.send("Nao encontrou")
