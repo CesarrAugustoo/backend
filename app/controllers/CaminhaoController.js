@@ -163,5 +163,12 @@ module.exports = {
             console.log("Erro ao ativar!")
             res.json(erro)
         })
+    },
+    async deletar_caminhoes(req, res) {
+        Caminhao.deleteMany({}).then(()=>{
+            res.send("Todos os caminnhoes deletados!")
+        }).catch((erro) =>{
+            res.send("Erro ao deletar os caminhoes! : " + erro)
+        })
     }
 }

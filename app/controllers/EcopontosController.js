@@ -177,9 +177,9 @@ module.exports = {
     },
     async deletar_ecopontos(req, res) {
         Ecoponto.deleteMany({}).then(()=>{
-            res.send("Tudo deletado!")
+            res.send("Todos os ecopontos deletados!")
         }).catch((erro) =>{
-            res.send("Erro ao deletar!")
+            res.send("Erro ao deletar os ecopontos! : " + erro)
         })
     }
 }

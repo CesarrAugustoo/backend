@@ -161,5 +161,12 @@ module.exports = {
             console.log("Erro ao ativar!")
             res.json(erro)
         })
+    },
+    async deletar_motoristas(req, res) {
+        Motorista.deleteMany({}).then(()=>{
+            res.send("Todos os motoristas deletados!")
+        }).catch((erro) =>{
+            res.send("Erro ao deletar motoristas!  : " + erro)
+        })
     }
 }
