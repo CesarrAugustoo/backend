@@ -46,6 +46,8 @@ module.exports = {
                 res.json(caminhao)
             })
 
+        }).catch((erro) => {
+            console.log(erro)
         });
     },
 

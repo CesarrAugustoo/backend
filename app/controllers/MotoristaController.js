@@ -45,6 +45,8 @@ module.exports = {
             })
 
             res.json(motorista)
+        }).catch((erro) =>{
+            console.log(erro)
         });
     },
 

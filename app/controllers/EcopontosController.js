@@ -69,6 +69,8 @@ module.exports = {
                 console.log(erro)
                 res.json(ecoponto)
             })
+        }).catch((erro) => {
+            console.log(erro)
         });
     },
     // Método que permite buscar um ecoponto dentro do banco
