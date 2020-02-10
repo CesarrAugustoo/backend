@@ -44,7 +44,7 @@ module.exports = {
                 console.log(erro)
             })
 
-            return res.json(motorista)
+            res.json(motorista)
         });
     },
 
@@ -93,17 +93,17 @@ module.exports = {
             // 0 Documentos encontrados
             if(listamotorista.n == 0){
                 console.log("Motorista nao encontrado!")
-                return res.json("Not found.")
+                res.json("Not found.")
             }
             // Se encontrar
             else{
                 console.log("Motorista Atualizado!")
-                return res.json(motorista)
+                res.json(motorista)
             }
         // Se não entrar no banco ou ocorrer qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao atualizar!")
-            return res.json(erro)
+            res.json(erro)
         })
     },
 
@@ -121,17 +121,17 @@ module.exports = {
             // Se não encontrar nenhum motorista
             if(listamotorista.n == 0) { // Se encontrar 0 documentos
                 console.log("Motorista não encontrado!")
-                return res.json("Not Found.")
+                res.json("Not Found.")
             }
             // Se encontrar
             else { 
                 console.log("Motorista desativado!")
-                return res.json("Done.")
+                res.json("Done.")
             }
         // Se não conseguir entrar no banco ou ocorrer qualquer erro
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
-            return res.json(erro)
+            res.json(erro)
         })
     },
 
@@ -149,17 +149,17 @@ module.exports = {
             // Se não encontrar nenhum motorisa
             if(listamotorista.n == 0) { // Se encontrar 0 documentos
                 console.log("Motorista não encontrado!")
-                return res.json("Not Found.")
+                res.json("Not Found.")
             }
             //Se encontrar, modificar
             else {
                 console.log("Motorista ativado!")
-                return res.json("Done.")
+                res.json("Done.")
             }
         // Se não entrar no banco ou a qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
-            return res.json(erro)
+            res.json(erro)
         })
     }
 }
