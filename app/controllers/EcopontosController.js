@@ -84,7 +84,6 @@ module.exports = {
         // Encontrar o motorista com esse ID
         Ecoponto.findOne(id_busca).then((ecoponto) => {
             // Se entrar no banco
-
             // Se não encontrar nenhum id no banco
             if(ecoponto == null) {
                 res.send("Nao encontrou")
@@ -176,7 +175,7 @@ module.exports = {
             return res.json(id)
         })
     },
-    async deletar_tudo(req, res) {
+    async deletar_ecopontos(req, res) {
         Ecoponto.deleteMany({}).then(()=>{
             res.send("Tudo deletado!")
         }).catch((erro) =>{
