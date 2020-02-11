@@ -43,9 +43,11 @@ module.exports = {
             }).catch((erro) =>{
                 console.log("Erro ao adicionar!")
                 console.log(erro)
-                return res.json(caminhao)
+                res.json(caminhao)
             })
 
+        }).catch((erro) => {
+            console.log(erro)
         });
     },
 
@@ -95,17 +97,17 @@ module.exports = {
             // 0 Documentos encontrados
             if(listacaminhao.n == 0){
                 console.log("Caminhao nao encontrado!")
-                return res.json("Not found.")
+                res.json("Not found.")
             }
             // Se encontrar
             else{
                 console.log("Caminhao Atualizado!")
-                return res.json(caminhao)
+                res.json(caminhao)
             }
         // Se não entrar no banco ou ocorrer qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao atualizar!")
-            return res.json(erro)
+            res.json(erro)
         })     
     },
 
@@ -123,17 +125,17 @@ module.exports = {
             // 0 Documentos encontrados
             if(listacaminhao.n == 0) {
                 console.log("Caminhao não encontrado!")
-                return res.json("Not Found.")
+                res.json("Not Found.")
             }
             // Se encontrar
             else {
                 console.log("Caminhao desativado!")
-                return res.json("Done.")
+                res.json("Done.")
             }
         // Se não entrar no banco ou ocorrer qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
-            return res.json(erro)
+            res.json(erro)
         })
     },
 
@@ -151,17 +153,24 @@ module.exports = {
             // 0 Documentos encontrados
             if(listacaminhao.n == 0) {
                 console.log("Caminhao não encontrado!")
-                return res.json("Not Found.")
+                res.json("Not Found.")
             }
             // Se encontrar
             else {
                 console.log("Caminhao ativado!")
-                return res.json("Done.")
+                res.json("Done.")
             }
         // Se não entrar no banco ou ocorrer qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
-            return res.json(erro)
+            res.json(erro)
+        })
+    },
+    async deletar_caminhoes(req, res) {
+        Caminhao.deleteMany({}).then(()=>{
+            res.send("Todos os caminnhoes deletados!")
+        }).catch((erro) =>{
+            res.send("Erro ao deletar os caminhoes! : " + erro)
         })
     }
 }

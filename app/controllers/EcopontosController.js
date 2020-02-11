@@ -8,11 +8,11 @@ module.exports = {
     async lista_ecopontos(req, res){
         // Se encontrar
         Ecoponto.find().sort({"status": Status.Ativo}).then((ecoponto) => {
-            console.log("Encontroou")
+            console.log("Lista carregada!")
             res.send(ecoponto)
         // Se não encontrar
         }).catch((erro) => {
-            console.log("Nao Encontroou")
+            console.log("Erro na listagem!")
             res.send(erro)
         })
         // var ecoponto = req.body.ecoponto
@@ -67,8 +67,10 @@ module.exports = {
             }).catch((erro) =>{
                 console.log("erro ao adicionar!")
                 console.log(erro)
-                return res.json(ecoponto)
+                res.json(ecoponto)
             })
+        }).catch((erro) => {
+            console.log(erro)
         });
     },
     // Método que permite buscar um ecoponto dentro do banco
@@ -114,17 +116,17 @@ module.exports = {
             // 0 Documentos encontrados
             if(listaecoponto.n == 0){
                 console.log("Ecoponto nao encontrado!")
-                return res.json("Not found.")
+                res.json("Not found.")
             }
             // Se encontrar
             else{
                 console.log("Ecoponto Atualizado!")
-                return res.json(ecoponto)
+                res.json(ecoponto)
             }
         // Se não entrar no banco ou ocorrer qualquer erro.
         }).catch((erro) =>{
             console.log("Erro ao atualizar!")
-            return res.json(erro)
+            res.json(erro)
         })
     },
     // Desativar ecoponto, permite modificar o status do ecoponto para INATIVO.
@@ -139,16 +141,16 @@ module.exports = {
             // Se não encontrar nenhum ecoponto
             if(listaecoponto.n == 0) { // Se encontrar 0 documentos
                 console.log("Ecoponto não encontrado!")
-                return res.json("Not Found.")
+                res.json("Not Found.")
             }
             //Se encontrar, modificar
             else {
                 console.log("Ecoponto desativado!")
-                return res.json("Done.")
+                res.json("Done.")
             }
         }).catch((erro) =>{
             console.log("Erro ao desativar!")
-            return res.json(id)
+            res.json(id)
         })
     },
     // Desativar ecoponto, permite modificar o status do ecoponto para ATIVO.
@@ -163,23 +165,23 @@ module.exports = {
             // Se não encontrar nenhum ecoponto
             if(ecoponto.n == 0) { // Se encontrar 0 documentos
                 console.log("Ecoponto não encontrado!")
-                return res.json("Not Found.")
+                res.json("Not Found.")
             }
             //Se encontrar, modificar
             else {
                 console.log("Ecoponto ativado!")
-                return res.json("Done.")
+                res.json("Done.")
             }
         }).catch((erro) =>{
             console.log("Erro ao ativar!")
-            return res.json(id)
+            res.json(id)
         })
     },
-    async deletar_tudo(req, res) {
+    async deletar_ecopontos(req, res) {
         Ecoponto.deleteMany({}).then(()=>{
-            res.send("Tudo deletado!")
+            res.send("Todos os ecopontos deletados!")
         }).catch((erro) =>{
-            res.send("Erro ao deletar!")
+            res.send("Erro ao deletar os ecopontos! : " + erro)
         })
     }
 }
