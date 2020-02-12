@@ -22,6 +22,7 @@ module.exports = {
     async cadastrar_caminhao(req, res){
         var caminhao = new Caminhao()
         caminhao = req.body.caminhao;
+        console.log(req.body.caminhao)
        
         // Criando IDs, o ID será o numero de instancias no banco + 1
         // Isso criará um ID auto-incremental
@@ -39,6 +40,7 @@ module.exports = {
             // Adiciona o caminhão ao banco
             Caminhao.create(caminhao).then((caminhao) =>{
                 console.log("Caminhao adicionado")
+                res.json("Sucesso")
             // Se ocorrer erro
             }).catch((erro) =>{
                 console.log("Erro ao adicionar!")
