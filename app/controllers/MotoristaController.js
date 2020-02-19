@@ -9,11 +9,11 @@ module.exports = {
     async lista_motoristas(req, res){
         // Se encontrar
         Motorista.find().sort({"status": Status.Ativo}).then((motorista) => {
-            console.log("Encontrou")
+            console.log("Lista de motoristas carregada")
             res.send(motorista)
         // Se não
         }).catch((erro) => {
-            console.log("Nao Encontrou")
+            console.log("Erro na lista de motoristas")
             res.send(erro)
         })
     },
